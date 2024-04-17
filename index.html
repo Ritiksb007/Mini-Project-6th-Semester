@@ -33,11 +33,18 @@
         <li><a href="#client">Developers</a></li>
       </ul>
       <div class="nav__btn">
-        <button class="btn login-btn" id="login-button">
+        <button class="btn login-btn" id="login-button" href="login.html">
           <i class="ri-login-box-line"></i>
           <span>Login</span>
         </button>
       </div>
+
+      <script>
+        document.getElementById('login-button').addEventListener('click', () => {
+         location.href = 'login.html';
+        });
+       </script>
+       
     </nav>
     <header class="section__container header__container" id="home">
       <div class="header__image">
