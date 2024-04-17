@@ -49,7 +49,61 @@
   
   /* white-space: nowrap; */
 }
+.nav__btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+}
 
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #3e8e41;
+}
+
+.login-btn {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.login-btn i {
+  margin-right: 5px;
+}
+
+.login-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  z-index: -1;
+  transition: transform 0.3s ease;
+  transform: translateX(-100%);
+}
+
+.login-btn:hover::before {
+  transform: translateX(0);
+}
+
+#login-button {
+  /* Add your custom styles here */
+}
 .btn {
   padding: 0.75rem 1.5rem;
   outline: none;

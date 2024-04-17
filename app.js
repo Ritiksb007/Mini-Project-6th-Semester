@@ -9,7 +9,12 @@ const firebaseConfig = {
   measurementId: "G-346DHF7S46"
 };
 
-firebase.initializeApp(firebaseConfig);
+// Ensure Firebase isn't initialized more than once
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app(); // if already initialized, use that one
+}
 
 const auth = firebase.auth();
 
@@ -32,11 +37,11 @@ signUpForm.addEventListener('submit', async (e) => {
 
   try {
     const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-    const user = userCredential.user;
-    console.log('User signed up:', user);
+    console.log('User signed up:', userCredential.user);
     alert('You have successfully signed up!');
     signUpForm.reset();
     container.classList.remove('sign-up-mode');
+    
   } catch (error) {
     console.error('Error creating user:', error);
     alert('Error creating user: ' + error.message);
@@ -50,12 +55,12 @@ signInForm.addEventListener('submit', async (e) => {
 
   try {
     const userCredential = await auth.signInWithEmailAndPassword(email, password);
-    const user = userCredential.user;
-    console.log('User signed in:', user);
+    console.log('User signed in:', userCredential.user);
     alert('You have successfully signed in!');
     signInForm.reset();
+    window.location.href = 'profile.html'; 
   } catch (error) {
-    console.error('Error signing in:', error);
-    alert('Error signing in: ' + error.message);
+    console.error('Error user Not found:', error);
+    alert('Error User Not Found: ' + error.message);
   }
 });
