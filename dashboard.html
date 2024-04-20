@@ -18,6 +18,66 @@
   <script type="module" src="script/database.js" defer></script>
 </head>
 
+<style>
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    display: block;
+    /* margin: 0 auto; Center the button horizontally */
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+input[type="text"] {
+    width: calc(100% - 20px); /* Adjusting for padding */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+iframe {
+    width: 100%;
+    height: 500px;
+    border: none;
+}
+</style>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"></script>
+<script>
+ const firebaseConfig = {
+  apiKey: "AIzaSyBYM0tkjdUDSzz7UoJt92jQITLXk4DD8lE",
+  authDomain: "stdperformance-bf994.firebaseapp.com",
+  projectId: "stdperformance-bf994",
+  storageBucket: "stdperformance-bf994.appspot.com",
+  messagingSenderId: "990002419810",
+  appId: "1:990002419810:web:e61ff22f2e52e7664fd93b",
+  measurementId: "G-346DHF7S46"
+};
+  
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  
+  // Check authentication state
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in, display profile section
+      document.getElementById("profileSection").style.display = "block";
+    } else {
+      // No user is signed in, redirect to login page
+      window.location.href = "login.html";
+    }
+  });
+  </script>
+
 <body>
 
  <!--navbar-->
@@ -81,62 +141,35 @@
       </div>
      </div>
     </div>
-    <div class="col-md-6 my-1">
-     <div class="card shadow-md">
-      <div class="card-body">
-       <h4 class="card-title">Additional Information</h4>
-       <ul class="list-group list-group-flush">
-        <li class="list-group-item">Additional Info 1: <span id="additional-info-1">Value 1</span></li>
-        <li class="list-group-item">Additional Info 2: <span id="additional-info-2">Value 2</span></li>
-        <li class="list-group-item">Additional Info 3: <span id="additional-info-3">Value 3</span></li>
-        <li class="list-group-item">Additional Info 3: <span id="additional-info-4">Value 3</span></li>
-        <!-- Add more additional info as needed -->
-       </ul>
-      </div>
-     </div>
+  <div class="col-md-6 my-1">
+        <div class="card shadow-md">
+            <div class="card-body">
+                <h4 class="card-title">Personal Information</h4>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">USN Number: <span id="additional-info-1"></span> <button class="btn btn-sm btn-primary edit-btn" data-info="usn">Edit</button></li>
+                    <li class="list-group-item">Branch: <span id="additional-info-2"></span> <button class="btn btn-sm btn-primary edit-btn" data-info="branch">Edit</button></li>
+                    <li class="list-group-item">College Name: <span id="additional-info-3"></span> <button class="btn btn-sm btn-primary edit-btn" data-info="college">Edit</button></li>
+                    <li class="list-group-item">LinkedIn Profile: <span id="additional-info-4"></span> <button class="btn btn-sm btn-primary edit-btn" data-info="linkedin">Edit</button></li>
+                    <!-- Add more additional info as needed -->
+                </ul>
+            </div>
+        </div>
     </div>
-   </div>
   </div>
+  <br>
 
-
-  <!--features-->
-  <div class="b-example-divider" id="features"></div>
-
-  <section class="features my-4">
-   <div class="container">
-    <h3>Key Features</h3>
-    <div class="row">
-     <div class="col-md-4">
-      <div class="card">
-       <div class="card-body">
-        <i class="bi bi-person-circle"></i>
-        <h5 class="card-title">Customizable Profiles</h5>
-        <p class="card-text">Personalize your profile with your own avatar, display name, and bio.</p>
-       </div>
-      </div>
-     </div>
-     <div class="col-md-4">
-      <div class="card">
-       <div class="card-body">
-        <i class="bi bi-journal-text"></i>
-        <h5 class="card-title">Saved Posts</h5>
-        <p class="card-text">Save your favorite posts to easily access them later.</p>
-       </div>
-      </div>
-     </div>
-     <div class="col-md-4">
-      <div class="card">
-       <div class="card-body">
-        <i class="bi bi-gear"></i>
-        <h5 class="card-title">Edit Profile</h5>
-        <p class="card-text">Update your profile information, including display name, avatar, and bio.</p>
-       </div>
-      </div>
-     </div>
-    </div>
-   </div>
-  </section>
-
+    
+  <div class="container">
+    <!-- Button with onclick event -->
+    <button id="dashboardButton" onclick="redirectToNewPage()" style="display: block; margin: 0 auto;">Go to student performance analysis dashboard</button>
+    <!-- Placeholder for the PowerBI dashboard -->
+    <div id="dashboardContainer"></div>
+</div>
+<script>
+function redirectToNewPage() {
+  window.location.href = 'powerbi.html';
+}
+</script>
   <div class="b-example-divider"></div>
 
   <section id="faq" class="faq my-6">
@@ -200,7 +233,6 @@
    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
     <div class="col-md-4 d-flex align-items-center">
      <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-      <i class="fab fa-bootstrap"></i>
      </a>
      <span class="mb-3 mb-md-0 text-body-secondary">&copy; <span id="currentYear"></span> Let's Progress</span>
     </div>
@@ -360,7 +392,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="changeDisplayName"">Change Display Name</button>
+        <button type="button" class="btn btn-primary" id="changeDisplayName">Change Display Name</button>
       </div>
     </div>
   </div>
