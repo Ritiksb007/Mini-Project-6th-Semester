@@ -1,89 +1,203 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/10.11.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/10.11.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/10.11.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/10.11.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/10.11.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/10.11.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/10.11.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/10.11.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/10.11.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/10.11.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
+    
+    <title>Let's Progress</title>
   </head>
   <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+    <nav>
+      <div class="nav__header">
+        <div class="logo nav__logo">
+          <a href=" ">Let's <span>Progress</span></a>
+        </div>
+        <div class="nav__menu__btn" id="menu-btn">
+          <span><i class="ri-menu-line"></i></span>
+        </div>
+      </div>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#team">Contact</a></li>
+        <li><a href="#client">Developers</a></li>
+      </ul>
+      <div class="nav__btn">
+        <button class="btn login-btn" id="login-button" href="login.html">
+          <i class="ri-login-box-line"></i>
+          <span>Login</span>
+        </button>
+      </div>
+
+      <script>
+        document.getElementById('login-button').addEventListener('click', () => {
+         location.href = 'login.html';
+        });
+       </script>
+       
+    </nav>
+    <header class="section__container header__container" id="home">
+      <div class="header__image">
+        <img src="assets/Image1.png" alt="header" />
+      </div>
+      <div class="header__content">
+        <h1>Welcome To <span>The Gateway of Student Performance Analysis! 🚀</span></h1>
+        <p class="section__description">
+          Unlock the power of data-driven insights with our innovative platform designed for engineering students.
+          Dive into comprehensive performance analytics, track your progress, and elevate your academic journey.
+
+        </p>
+        <div class="header__btn">
+          <a href="login.html" target="_blank">
+            <button class="btn">Get Started</button>
+          </a>
+        </div>
+        
+    </header>
+    <div class="section__container header__container" id="about">
+      <div class="header__image">
+        <img src="assets/Image2.png" alt="header" />
+      </div>
+      <div class="header__content">
+        <h1>Let's Progress  <span>Where Progress Meets Potential...!!</span></h1>
+        <p class="section__description">
+          Recognizing the common aspiration for high performance among college students, we understand the challenges arising from inadequate analysis of there performance. Through our platform, users not only gain valuable insights but also have the opportunity to build a robust profile by adding certificates and other career-building elements. This also benefits colleges to effectively track and manage student records. So, join us in the journey of academic advancement and professional growth with Student Performance Analysis.
+       </p>
+      </div>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+    <p class="section__description1" >Created by third-year students from the Department of Emerging Technologies at SB Jain Institute of Technology Management and Research, Nagpur. Let's Progress is our ambitious 6th-semester Mini Project. Amid various project ideas, we chose this endeavour with a singular goal to elevate the academic performance of engineering students.
+    </p>
+    <br>
+    <h1 style="justify-content: center;text-align: center;" id="Features">Key Features</h1>
+    
+    <section class="section__container banner__container">
+      <div class="banner__card">
+        <span class="banner__icon"><i class="ri-dashboard-line"></i></span>
+        <h4>Intuitive Dashboard</h4>
+        <p>
+          Visualize your academic 
+          performance at a glance 
+          with our user-friendly 
+          dashboard.
+          
+        </p>
+        <a href="#">
+          Read more
+          <span><i class="ri-arrow-right-line"></i></span>
+        </a>
+      </div>
+      <div class="banner__card">
+        <span class="banner__icon"><i class="ri-line-chart-fill"></i></span>
+        <h4>Subject-wise Analysis</h4>
+        <p>
+          Drill down into detailed 
+          subject-wise analysis to 
+          identify strengths and 
+          areas for improvement.
+          
+        </p>
+        <a href="#">
+          Read more
+          <span><i class="ri-arrow-right-line"></i></span>
+        </a>
+      </div>
+      <div class="banner__card">
+        <span class="banner__icon"><i class="ri-profile-line"></i></span>
+        <h4>Student Profile</h4>
+        <p>
+          Keep track of your academic milestones and enhance the efficiency of your student profile.
+        </p>
+        <a href="#">
+          Read more
+          <span><i class="ri-arrow-right-line"></i></span>
+        </a>
+      </div>
+    </section>
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
+    <section class="team" id="team">
+      <div class="section__container team__container">
+        <div class="team__image">
+          <img src="assets/Team.png" alt="team" />
+        </div>
+        <div class="team__content">
+          <h2 class="section__header">Engineered by Top Minds in the Academic World</h2>
+          <p class="section__description">
+            We are the students of SB Jain Institute Of Technology, Management and Research. We are perusing B.Tech in Artificial Intelligence and Machine Learning. Our team consists of 4 team members. 
+            In this project we are working on various technologies namely for Data Visualization: Power BI/Tableau, Database Management: MongoDB/SQL/FireBase and Software Testing: Jira/Selenium and many more.
+          </p>
+          <h1>Team Members</h1>
+          <br>
+          <ul class="team__list">
+            <li>
+              <span><i class="ri-checkbox-fill"></i></span>
+              Sohail Ansari
+            </li>
+            <li>
+              <span><i class="ri-checkbox-fill"></i></span>
+              Ritik Malviya
+            </li>
+            <li>
+              <span><i class="ri-checkbox-fill"></i></span>
+              Ruchita Kumbhare
+            </li>
+            <li>
+              <span><i class="ri-checkbox-fill"></i></span>
+              Ankush Gupta
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    
+    <footer class="footer" id="contact">
+      <div class="section__container footer__container">
+        <div class="footer__col">
+          <div class="logo footer__logo">
+            <a href="#">Let's  <span>Progress</span></a>
+          </div>
+          <p class="section__description">
+            Embark on an academic journey with Let's Progress, where every step tells a story and every analysis is crafted to perfection in our Student Performance Analysis System.
+          </p>
+        </div>
+        <div class="footer__col">
+          <h4>Information</h4>
+          <ul class="footer__links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#Features">Features</a></li>
+            <li><a href="#team">Team</a></li>
+          </ul>
+        </div>
+      
+        <div class="footer__col">
+          <h4>Company</h4>
+          <ul class="footer__links">
+            <li><a href=" ">Our Story</a></li>
+            <li><a href=" ">Careers</a></li>
+            <li><a href=" ">Terms of Service</a></li>
+            <li><a href="  ">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bar">
+        Copyright © 2024 Student Performance analysis. All rights reserved.
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>
