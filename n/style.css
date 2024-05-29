@@ -1,0 +1,64 @@
+body .image {
+  border-radius: 5px;
+  filter: saturate(130%);
+ }
+ 
+ .image:hover {
+  filter: saturate(200%);
+  transition: ease-in-out 2s;
+ }
+ 
+ .list-group {
+  border: none !important;
+ }
+ 
+ .offcanvas-footer {
+ 
+  padding: var(--bs-offcanvas-padding-y) var(--bs-offcanvas-padding-x);
+  overflow-y: auto;
+ }
+ 
+ .offcanvas-footer button{
+  margin-left: 1.2rem;
+ }
+ 
+  /* Custom styles */
+  .profile-banner {
+   position: relative;
+   height: 120px;
+   background-image: url('https://images.pexels.com/photos/1524105/pexels-photo-1524105.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+   background-size: cover;
+   background-position: center;
+   filter: blur(5px);
+ 
+ }
+ 
+ .profile-picture-container {
+   position: relative;
+   top: -100px; /* Adjust this value based on your design */
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+ 
+ .profile-picture {
+   width: 150px;
+   height: 150px;
+   border-radius: 50%;
+   overflow: hidden;
+   border: 5px solid white; /* You can adjust the border size and color */
+   background-image: url('https://xsgames.co/randomusers/avatar.php?g=male');
+   background-size: cover;
+ }
+ 
+ .profile-info {
+   text-align: center;
+ }
+ 
+ .profile-info h2 {
+   margin-bottom: 10px;
+ }
+ 
+ 
+ 
+ 

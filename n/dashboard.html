@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Let's Progress</title>
+ <link href="https://cdn.jsdelivr.net/npm/fastbootstrap@2.2.0/dist/css/fastbootstrap.min.css" rel="stylesheet"
+  integrity="sha256-V6lu+OdYNKTKTsVFBuQsyIlDiRWiOmtC8VQ8Lzdm2i4=" crossorigin="anonymous">
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+ <link rel="stylesheet" href="style.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script type="module" src="script/fetchData.js" defer></script>
+  <script type="module" src="script/customize.js" defer></script>
+  <script type="module" src="script/database.js" defer></script>
+</head>
+
+<style>
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    display: block;
+    /* margin: 0 auto; Center the button horizontally */
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+input[type="text"] {
+    width: calc(100% - 20px); /* Adjusting for padding */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+iframe {
+    width: 100%;
+    height: 500px;
+    border: none;
+}
+</style>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"></script>
+<script>
+ const firebaseConfig = {
+  apiKey: "AIzaSyBYM0tkjdUDSzz7UoJt92jQITLXk4DD8lE",
+  authDomain: "stdperformance-bf994.firebaseapp.com",
+  projectId: "stdperformance-bf994",
+  storageBucket: "stdperformance-bf994.appspot.com",
+  messagingSenderId: "990002419810",
+  appId: "1:990002419810:web:e61ff22f2e52e7664fd93b",
+  measurementId: "G-346DHF7S46"
+};
+  
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  
+  // Check authentication state
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in, display profile section
+      document.getElementById("profileSection").style.display = "block";
+    } else {
+      // No user is signed in, redirect to login page
+      window.location.href = "login.html";
+    }
+  });
+  </script>
+
+<body>
+
+ <!--navbar-->
+ <nav class="navbar navbar-expand-lg container">
+   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+    aria-expanded="false">
+    <span class="navbar-toggler-icon"></span>
+   </button>
+   <a class="navbar-brand" href="#">
+    <!-- <img src="/images/logo-blue.png" width="140" /> -->
+   </a>
+   <div class="collapse navbar-collapse" id="navbar">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    
+    </ul>
+    <div class="d-flex align-items-center">
+     <button type="button" class="btn btn-default px-3 me-2" type="button" data-bs-toggle="offcanvas"
+      data-bs-target="#profile-menu" aria-controls="offcanvasExample">
+      Profile
+     </button>
+     <button type="button" class="btn btn-primary me-3 " id="logout">
+      logout
+     </button>
+
+    </div>
+   </div>
+ 
+ </nav>
+
+ <div class="my-2">
+  <div class="profile-banner"></div>
+
+  <!-- Profile Picture -->
+  <div class="profile-picture-container">
+   <div class="profile-picture" id="profile">
+    
+
+   </div>
+  </div>
+
+  <!-- Profile Information -->
+  <div class="profile-info container">
+   <h3 id="username">User Name</h3>
+   <p id="email">Email Address</p>
+  </div>
+
+  <!-- Profile Grid -->
+  <div class="profile-grid container">
+   <!-- Account Information -->
+   <div class="row">
+    <div class="col-md-6 my-1">
+     <div class="card shadow-md">
+      <div class="card-body">
+       <h4 class="card-title">Account Information</h4>
+       <ul class="list-group list-group-flush">
+        <li class="list-group-item">Verified Status: <span id="verified-status"></span></li>
+        <li class="list-group-item">Email Address: <span id="account-email" >user@example.com</span></li>
+        <li class="list-group-item">User ID: <span id="user-id">123456789</span></li>
+        <li class="list-group-item">Password: ********* <a href="#" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change Password</a></li>
+       </ul>
+      </div>
+     </div>
+    </div>
+  <div class="col-md-6 my-1">
+        <div class="card shadow-md">
+            <div class="card-body">
+                <h4 class="card-title">Personal Information</h4>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">USN Number: <span id="additional-info-1"></span> <button class="btn btn-sm btn-primary edit-btn" data-info="usn">Edit</button></li>
+                    <li class="list-group-item">Branch: <span id="additional-info-2"></span> <button class="btn btn-sm btn-primary edit-btn" data-info="branch">Edit</button></li>
+                    <li class="list-group-item">College Name: <span id="additional-info-3"></span> <button class="btn btn-sm btn-primary edit-btn" data-info="college">Edit</button></li>
+                    <li class="list-group-item">LinkedIn Profile: <span id="additional-info-4"></span> <button class="btn btn-sm btn-primary edit-btn" data-info="linkedin">Edit</button></li>
+                    <!-- Add more additional info as needed -->
+                </ul>
+            </div>
+        </div>
+    </div>
+  </div>
+  <br>
+
+    
+  <div class="container">
+    <!-- Button with onclick event -->
+    <button id="dashboardButton" onclick="redirectToNewPage()" style="display: block; margin: 0 auto;">Go to student performance analysis dashboard</button>
+    <!-- Placeholder for the PowerBI dashboard -->
+    <div id="dashboardContainer"></div>
+</div>
+<script>
+function redirectToNewPage() {
+  window.location.href = 'powerbi.html';
+}
+</script>
+  <div class="b-example-divider"></div>
+
+  <section id="faq" class="faq my-6">
+   <div class="container">
+    <h5>Frequently Asked Questions</h5>
+    <div class="accordion" id="faqAccordion">
+     <div class="accordion-item">
+      <h3 class="accordion-header" id="faqHeadingOne">
+       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+        aria-expanded="true" aria-controls="collapseOne">
+        How do I update my profile information?
+       </button>
+      </h3>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="faqHeadingOne"
+       data-bs-parent="#faqAccordion">
+       <div class="accordion-body">
+        To update your profile information, navigate to the "Edit Profile" section and make the desired changes. Don't
+        forget to save your changes after updating your information.
+       </div>
+      </div>
+     </div>
+     <div class="accordion-item">
+      <h3 class="accordion-header" id="faqHeadingTwo">
+       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+        aria-expanded="false" aria-controls="collapseTwo">
+        Can I delete my account?
+       </button>
+      </h3>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="faqHeadingTwo"
+       data-bs-parent="#faqAccordion">
+       <div class="accordion-body">
+        Yes, you can delete your account at any time. Please note that this action is irreversible and will permanently
+        delete all your account data.
+       </div>
+      </div>
+     </div>
+     <div class="accordion-item">
+      <h3 class="accordion-header" id="faqHeadingThree">
+       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        Is Let's Progress free to use?
+       </button>
+      </h3>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="faqHeadingThree"
+       data-bs-parent="#faqAccordion">
+       <div class="accordion-body">
+        Yes, Let's Progress offers a free plan with basic features available to all users. Additionally, we offer premium
+        subscription plans with enhanced features and benefits for those who require additional functionality. Visit our
+        pricing page for more information.
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+
+  <!--footer-->
+  <div class="b-example-divider"></div>
+
+  <div class="container">
+   <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+    <div class="col-md-4 d-flex align-items-center">
+     <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+     </a>
+     <span class="mb-3 mb-md-0 text-body-secondary">&copy; <span id="currentYear"></span> Let's Progress</span>
+    </div>
+
+    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+     <li class="ms-3"><a class="text-body-secondary" href="#"><i class="fab fa-twitter"></i></a></li>
+     <li class="ms-3"><a class="text-body-secondary" href="#"><i class="fab fa-instagram"></i></a></li>
+     <li class="ms-3"><a class="text-body-secondary" href="#"><i class="fab fa-facebook"></i></a></li>
+    </ul>
+   </footer>
+
+   <script>
+    // JavaScript to display the current year in the footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+   </script>
+
+  </div>
+
+
+
+  <!--off canvas menu-->
+
+  <!-- with data-bs-toggle="offcanvas" -->
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="profile-menu" aria-labelledby="offcanvasExampleLabel">
+   <div class="offcanvas-header">
+    <h4 class="offcanvas-title" id="offcanvasExampleLabel">My Profile</h4>
+    <button type="button" class="btn-close btn-close-sm" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+   </div>
+   <div class="offcanvas-body">
+    <p>Customize & Manage Profile</p>
+    <ul class="list-group">
+     <li class="list-group-item">
+      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#changeProfilePictureModal"> <i class="fas fa-user-edit"></i> Change Profile
+       Picture</button>
+     </li>
+     <li class="list-group-item">
+      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#changeDisplayNameModal"> <i class="fas fa-user-edit"></i> Change Display
+       Name</button>
+     </li>
+     <li class="list-group-item">
+      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#changePasswordModal"> <i class="fas fa-key" ></i> Change My Password</button>
+     </li>
+
+     <li class="list-group-item">
+      <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#changeEmailModal">
+       <i class="fas fa-envelope"></i> Change My Email</button>
+     </li>
+     <!-- Add more customization options as needed -->
+    </ul>
+
+   </div>
+   <!-- Delete account button -->
+   <div class="offcanvas-footer">
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProfileModal">Delete Account</button>
+   </div>
+  </div>
+
+
+
+
+  <!--modals-->
+
+  <div class="modal fade" id="changePasswordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="changePasswordForm">
+            <div class="mb-3">
+              <label for="newPassword" class="form-label">New Password</label>
+              <input type="password" class="form-control" id="newPassword" required>
+            </div>
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">Confirm New Password</label>
+              <input type="password" class="form-control" id="confirmPassword" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+          <button type="button" class="btn btn-primary" id="changePassword">Change Password</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<!--change email-->
+  
+  <div class="modal fade" id="changeEmailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="changeEmailModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="changeEmailModalLabel">Change Email</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="changeEmailForm">
+            <div class="mb-3">
+              <label for="newEmail" class="form-label">New Email Address</label>
+              <input type="email" class="form-control" id="newEmail" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="changeEmail"">Change Email</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--change profile-->
+ 
+  
+  <div class="modal fade" id="changeProfilePictureModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="changeProfilePictureModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="changeProfilePictureModalLabel">Change Profile Picture</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="changeProfilePictureForm">
+            <div class="mb-3">
+              <label for="newProfilePicture" class="form-label">Upload Profile Picture</label>
+              <input type="file" class="form-control" id="newProfilePicture" accept="image/*">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="changeProfile">Upload Profile Picture</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<!--change display name-->  
+<div class="modal fade" id="changeDisplayNameModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="changeDisplayNameModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="changeDisplayNameModalLabel">Change Display Name</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="changeDisplayNameForm">
+          <div class="mb-3">
+            <label for="newDisplayName" class="form-label">New Display Name</label>
+            <input type="text" class="form-control" id="newDisplayName" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="changeDisplayName">Change Display Name</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--delete profile-->
+
+
+<div class="modal fade" id="deleteProfileModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteProfileModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteProfileModalLabel">Delete Profile</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete your profile?</p>
+        <p>This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger"  id="deleteProfile">Delete Profile</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>
